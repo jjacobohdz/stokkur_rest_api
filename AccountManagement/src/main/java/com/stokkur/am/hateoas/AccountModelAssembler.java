@@ -9,7 +9,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 /**
  *
- * @author jahern
+ * @author Jacobo
  */
 @Component
 public class AccountModelAssembler implements RepresentationModelAssembler<Account, EntityModel<Account>> {
