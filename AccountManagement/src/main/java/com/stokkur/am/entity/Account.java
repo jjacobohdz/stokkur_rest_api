@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Entity representation of an Account.
@@ -11,6 +15,10 @@ import javax.persistence.Id;
  * @author Jacobo
  */
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Account {
     
     @Id
@@ -26,9 +34,6 @@ public class Account {
     private Integer age;
     
     private double balance;
-    
-    // Required by jpa. Not meant to be accessed directly so this 'ctor is protected.
-    protected Account() {}
 
     public Account(String firstName, String lastName, String email, Integer age, double balance) {
         this.firstName = firstName;
@@ -37,7 +42,7 @@ public class Account {
         this.age = age;
         this.balance = balance;
     }
-
+    
     public String getFirstName() {
         return firstName;
     }
