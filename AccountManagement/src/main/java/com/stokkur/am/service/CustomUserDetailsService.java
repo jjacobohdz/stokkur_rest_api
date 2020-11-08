@@ -1,6 +1,7 @@
 package com.stokkur.am.service;
 
 import com.stokkur.am.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,12 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
     
-    private final UserRepository theUserRepository;
+    @Autowired(required = false)
+    private UserRepository theUserRepository;
     
-    public CustomUserDetailsService(UserRepository aUserRepository) {
-        theUserRepository = aUserRepository;
-    }
-
     /**
      * Customize the process of finding a user.
      * 

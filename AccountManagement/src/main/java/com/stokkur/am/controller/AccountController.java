@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author Jacobo
  */
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/api")
 public class AccountController {
     
     @Autowired
