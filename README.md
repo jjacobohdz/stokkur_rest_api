@@ -63,15 +63,7 @@ git clone https://github.com/jjacobohdz/stokkur_rest_api.git
 cd AccountManagement
 ```
 
-5. To compile the downloaded source code, execute the following command
-
-```
-mvn compile
-```
-
-After successful compile, you will find the binary .class files in the target/classes directory
-
-6. To run the application, execute the following command
+5. To run the application, execute the following command
 
 ```
 mvn spring-boot:run
@@ -133,7 +125,3 @@ You can confirm the new account was deleted successfully by executing:
 ```
 curl -X GET localhost:8080/api/accounts
 ```
-
-## Authors
-
-* **Jacobo Hernandez** - *Initial work* - [jjacobohdz](https://github.com/jjacobohdz)
