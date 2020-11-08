@@ -1,5 +1,8 @@
-package com.stokkur.am.jwt;
+package com.stokkur.am.config;
 
+import com.stokkur.am.jwt.JwtFilter;
+import com.stokkur.am.jwt.JwtHelper;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
@@ -12,11 +15,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * 
  * @author Jacobo
  */
-public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+@Configuration
+public class JwtConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     private final JwtHelper theJwtHelper;
     
-    public JwtConfigurer(JwtHelper aJwtHelper) {
+    public JwtConfig(JwtHelper aJwtHelper) {
         theJwtHelper = aJwtHelper;
     }
     

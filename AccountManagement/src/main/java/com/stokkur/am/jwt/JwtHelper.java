@@ -1,5 +1,6 @@
 package com.stokkur.am.jwt;
 
+import com.stokkur.am.exception.InvalidTokenException;
 import com.stokkur.am.service.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -92,7 +93,7 @@ public class JwtHelper {
             
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtException("Invalid JWT token", e.getCause());
+            throw new InvalidTokenException(e.getMessage());
         }
     }
     

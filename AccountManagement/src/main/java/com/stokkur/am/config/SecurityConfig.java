@@ -1,6 +1,7 @@
-package com.stokkur.am.security;
+package com.stokkur.am.config;
 
-import com.stokkur.am.jwt.JwtConfigurer;
+import com.stokkur.am.config.JwtConfig;
+import com.stokkur.am.exception.CustomFilterChainExceptionHandler;
 import com.stokkur.am.jwt.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,11 +11,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * This class applies the custom JwtConfigurer as the application security config,
- * thus requiring the user to be authenticated prior to accessing protected resources
- * within the application.
+ * This class applies the custom JwtConfig as the application security config,
+ thus requiring the user to be authenticated prior to accessing protected resources
+ within the application.
  * 
  * @author Jacobo
  */
@@ -23,6 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     private JwtHelper theJwtHelper;
+    
+    @Autowired
+    private CustomFilterChainExceptionHandler theFilterChainExceptionHandler;
     
     @Bean
     @Override
@@ -45,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/accounts/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             .and()
-            .apply(new JwtConfigurer(theJwtHelper));
+            .addFilterBefore(theFilterChainExceptionHandler, UsernamePasswordAuthenticationFilter.class)
+            .apply(new JwtConfig(theJwtHelper));
     }
 }
