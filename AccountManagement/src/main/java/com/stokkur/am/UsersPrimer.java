@@ -1,10 +1,10 @@
 package com.stokkur.am;
 
+import com.stokkur.am.config.SecurityConfig;
 import com.stokkur.am.entity.User;
 import com.stokkur.am.repository.UserRepository;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,36 +19,36 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class UsersPrimer {
 
-  private static final Logger theLog = Logger.getLogger(UsersPrimer.class.getName());
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
-  /**
-   * This method adds a couple of users
-   * 
-   * @param aUsersRepository
-   * @return 
-   */
-  @Bean
-  CommandLineRunner initUsers(UserRepository aUsersRepository) {
-      
-    PasswordEncoder thePasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-      
-    aUsersRepository.save(User.builder()
-        .username("duke")
-        .password(thePasswordEncoder.encode("java"))
-        .roles(Arrays.asList("ROLE_USER"))
-        .build()
-    );
+    /**
+     * This method adds a couple of users
+     * 
+     * @param aUsersRepository
+     * @return 
+     */
+    @Bean
+    CommandLineRunner initUsers(UserRepository aUsersRepository) {
 
-    aUsersRepository.save(User.builder()
-        .username("admin")
-        .password(thePasswordEncoder.encode("admin"))
-        .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
-        .build()
-    );
+      PasswordEncoder thePasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-    return args -> {
-      theLog.log(Level.CONFIG, "Users Primed");
-    };
-  }
+      aUsersRepository.save(User.builder()
+          .username("duke")
+          .password(thePasswordEncoder.encode("java"))
+          .roles(Arrays.asList("ROLE_USER"))
+          .build()
+      );
+
+      aUsersRepository.save(User.builder()
+          .username("admin")
+          .password(thePasswordEncoder.encode("admin"))
+          .roles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"))
+          .build()
+      );
+
+      return args -> {
+        logger.debug("Users primed");
+      };
+    }
   
 }

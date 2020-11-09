@@ -3,6 +3,8 @@ package com.stokkur.am.config;
 import com.stokkur.am.config.JwtConfig;
 import com.stokkur.am.exception.CustomFilterChainExceptionHandler;
 import com.stokkur.am.jwt.JwtHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
     
     @Autowired
     private JwtHelper theJwtHelper;
@@ -52,5 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .addFilterBefore(theFilterChainExceptionHandler, UsernamePasswordAuthenticationFilter.class)
             .apply(new JwtConfig(theJwtHelper));
+        
+        logger.debug("SecurityConfig successfully loaded");
     }
 }

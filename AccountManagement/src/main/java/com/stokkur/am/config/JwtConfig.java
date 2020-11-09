@@ -2,6 +2,8 @@ package com.stokkur.am.config;
 
 import com.stokkur.am.jwt.JwtFilter;
 import com.stokkur.am.jwt.JwtHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 public class JwtConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+    private final Logger logger = LoggerFactory.getLogger(JwtConfig.class);
 
     private final JwtHelper theJwtHelper;
     
@@ -29,5 +32,7 @@ public class JwtConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterCh
         JwtFilter aJwtFilter = new JwtFilter(theJwtHelper);
         
         http.addFilterBefore(aJwtFilter, UsernamePasswordAuthenticationFilter.class);
+        
+        logger.debug("JWTConfig loaded successfully");
     }
 }

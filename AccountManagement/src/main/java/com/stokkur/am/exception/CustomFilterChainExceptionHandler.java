@@ -12,7 +12,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 /**
- *
+ * This filter handles exceptions coming thrown in places other than the controller
+ * and maps to the corresponding advice handler.
+ * 
  * @author Jacobo
  */
 @Component

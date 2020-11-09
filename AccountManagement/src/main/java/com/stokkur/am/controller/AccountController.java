@@ -6,6 +6,7 @@ import com.stokkur.am.hateoas.AccountModelAssembler;
 import com.stokkur.am.repository.AccountRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api")
 public class AccountController {
+
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(AccountController.class);
     
     @Autowired
     private AccountRepository theAccountRepository;
@@ -48,21 +51,25 @@ public class AccountController {
     
     @GetMapping("/accounts/{id}")
     public EntityModel<Account> one(@PathVariable Long id) {
+        logger.debug("searching account with id " + id);
+        
+        Account account = theAccountRepository.findById(id)
+            .orElseThrow(() -> new AccountNotFoundException(id));
 
-      Account account = theAccountRepository.findById(id)
-          .orElseThrow(() -> new AccountNotFoundException(id));
-
-      return theAccountModelAssembler.toModel(account);
+        return theAccountModelAssembler.toModel(account);
     }
 
     @PostMapping("/accounts")
     public ResponseEntity<?> newAccount(@RequestBody Account aNewAccount) {
+        logger.debug("adding new account: " + aNewAccount.toString());
+        
+        EntityModel<Account> entityModel = theAccountModelAssembler.toModel(theAccountRepository.save(aNewAccount));
 
-      EntityModel<Account> entityModel = theAccountModelAssembler.toModel(theAccountRepository.save(aNewAccount));
-
-      return ResponseEntity
-          .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-          .body(entityModel);
+        logger.debug("persisted account: " + entityModel.getContent().toString());
+        
+        return ResponseEntity
+            .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+            .body(entityModel);
     }
     
     @PutMapping("/accounts/{id}")

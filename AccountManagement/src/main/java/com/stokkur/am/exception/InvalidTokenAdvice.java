@@ -17,7 +17,7 @@ public class InvalidTokenAdvice {
     @ExceptionHandler(InvalidTokenException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String invalidTokenHandler(InvalidTokenException ex) {
-      return ex.getMessage();
+        return ex.getMessage();
     }
     
 }
