@@ -40,7 +40,7 @@ For git installation visit https://es.atlassian.com/git/tutorials/install-git
 
 To facilitate the installation process, this project uses an In-Memory HyperSQL Database (HSQLDB), so you don't have to install and configure a local DBMS instance to use it.
 
-Also, for deploying the REST API, the Spring embedded Tomcat instance is used, so you don't need to deploy any .war file to a particular server instance.
+Also, for deploying the REST API, the Spring embedded Tomcat instance is used, so you don't need to install and configure your own.
 
 
 ### Downloading
@@ -60,7 +60,7 @@ git clone https://github.com/jjacobohdz/stokkur_rest_api.git
 4. Navigate to downloaded directory AccountManagement
 
 ```
-cd AccountManagement
+cd stokkur_rest_api\AccountManagement
 ```
 
 5. To run the application, execute the following command
@@ -71,13 +71,6 @@ mvn spring-boot:run
 
 After this, you will be able to start interacting with the provided REST API, as described below.
 
-
-## Unit Tests
-
-To specifically run the test cases included with the project, you can execute
-```
-mvn test
-```
 
 ## REST API Consumption
 
@@ -124,4 +117,11 @@ curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVz
 You can confirm the new account was deleted successfully by executing:
 ```
 curl -X GET localhost:8080/api/accounts
+```
+
+## Unit Tests
+
+To specifically run the test cases included with the project, you can execute
+```
+mvn test
 ```
