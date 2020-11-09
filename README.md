@@ -2,11 +2,11 @@
 
 This project provides a REST API to manage accounts.
 
-The project is based on the Spring Framework. Specifically it uses the following modules:
+The project is based on the Spring Boot framework. Specifically it uses the following modules:
 
 - Spring Data JPA
 
-- Spring Boot REST
+- Spring REST
 
 - Spring Security
 
@@ -27,7 +27,7 @@ The project also uses the following technologies and libraries:
 
 ## Getting Started
 
-The following instructions will guide you through getting a copy of the project, compiling in your development environment, and executing.
+The following instructions will guide you through getting a copy of the project and executing it in your environment.
 
 
 ### Prerequisites
@@ -37,6 +37,7 @@ To successfully set up the project, you will need Maven and git installed in you
 For Maven installation visit https://maven.apache.org/
 
 For git installation visit https://es.atlassian.com/git/tutorials/install-git
+
 
 To facilitate the installation process, this project uses an In-Memory HyperSQL Database (HSQLDB), so you don't have to install and configure a local DBMS instance to use it.
 
